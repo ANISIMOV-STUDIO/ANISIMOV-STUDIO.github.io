@@ -186,24 +186,30 @@ class SnapScroll {
     this.bindEvents();
   }
   
+  isMobile() {
+    return window.innerWidth <= 768 || 'ontouchstart' in window;
+  }
+  
   bindEvents() {
-    // Обработка колесика мыши
-    this.container.addEventListener('wheel', (e) => {
-      if (this.isScrolling) return;
-      
-      e.preventDefault();
-      
-      const delta = e.deltaY;
-      const threshold = 50; // Минимальный скролл для переключения
-      
-      if (Math.abs(delta) > threshold) {
-        if (delta > 0) {
-          this.scrollToNext();
-        } else {
-          this.scrollToPrev();
+    // Обработка колесика мыши (только на десктопе)
+    if (!this.isMobile()) {
+      this.container.addEventListener('wheel', (e) => {
+        if (this.isScrolling) return;
+        
+        e.preventDefault();
+        
+        const delta = e.deltaY;
+        const threshold = 50; // Минимальный скролл для переключения
+        
+        if (Math.abs(delta) > threshold) {
+          if (delta > 0) {
+            this.scrollToNext();
+          } else {
+            this.scrollToPrev();
+          }
         }
-      }
-    }, { passive: false });
+      }, { passive: false });
+    }
     
     // Обработка клавиатуры
     document.addEventListener('keydown', (e) => {
@@ -231,29 +237,35 @@ class SnapScroll {
       }
     });
     
-    // Обработка тач-жестов
-    let touchStartY = 0;
-    let touchEndY = 0;
-    
-    this.container.addEventListener('touchstart', (e) => {
-      touchStartY = e.touches[0].clientY;
-    });
-    
-    this.container.addEventListener('touchend', (e) => {
-      if (this.isScrolling) return;
+    // Обработка тач-жестов (улучшенная для мобильных)
+    if (this.isMobile()) {
+      let touchStartY = 0;
+      let touchEndY = 0;
+      let touchStartTime = 0;
       
-      touchEndY = e.changedTouches[0].clientY;
-      const deltaY = touchStartY - touchEndY;
-      const threshold = 50;
+      this.container.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+      }, { passive: true });
       
-      if (Math.abs(deltaY) > threshold) {
-        if (deltaY > 0) {
-          this.scrollToNext();
-        } else {
-          this.scrollToPrev();
+      this.container.addEventListener('touchend', (e) => {
+        if (this.isScrolling) return;
+        
+        touchEndY = e.changedTouches[0].clientY;
+        const deltaY = touchStartY - touchEndY;
+        const deltaTime = Date.now() - touchStartTime;
+        const threshold = 30; // Меньший порог для мобильных
+        
+        // Проверяем, что это был быстрый свайп, а не медленная прокрутка
+        if (Math.abs(deltaY) > threshold && deltaTime < 300) {
+          if (deltaY > 0) {
+            this.scrollToNext();
+          } else {
+            this.scrollToPrev();
+          }
         }
-      }
-    });
+      }, { passive: true });
+    }
   }
   
   scrollToNext() {
@@ -285,10 +297,11 @@ class SnapScroll {
       behavior: 'smooth'
     });
     
-    // Разблокировка через время анимации
+    // Разблокировка через время анимации (быстрее на мобильных)
+    const animationTime = this.isMobile() ? 600 : 800;
     setTimeout(() => {
       this.isScrolling = false;
-    }, 800);
+    }, animationTime);
   }
 }
 

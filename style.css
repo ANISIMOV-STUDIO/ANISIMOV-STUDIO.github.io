@@ -430,6 +430,34 @@ h1, h2, h3 {
   align-content: center;
 }
 
+/* Mobile content scrolling */
+@media (max-width: 768px) {
+  .content-section {
+    padding: 15px 10px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  .project-info {
+    height: auto;
+    align-content: start;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  /* Убираем snap на мобильных для контент-секции */
+  .snap-container {
+    scroll-snap-type: none;
+  }
+  
+  .content-section.snap-section {
+    scroll-snap-align: none;
+  }
+}
+
 .info-card {
   padding: 48px 40px;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -773,49 +801,106 @@ h1, h2, h3 {
 /* === Responsive === */
 @media (max-width: 768px) {
   .content-section {
-    padding: 20px 15px;
+    padding: 15px 10px;
   }
   
   .project-info {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 16px;
+    padding: 10px 0;
   }
   
   .info-card {
-    padding: 28px 20px;
+    padding: 20px 16px;
+  }
+  
+  .info-card h2 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
   }
   
   .projects-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 12px;
   }
   
   .project-card {
-    padding: 20px;
+    padding: 16px;
+  }
+  
+  .project-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  
+  .project-card p {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+  
+  .project-tech {
+    gap: 6px;
+  }
+  
+  .project-tech span {
+    font-size: 0.7rem;
+    padding: 4px 8px;
   }
   
   .services-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 12px;
+  }
+  
+  .service-item {
+    padding: 16px;
+  }
+  
+  .service-item h4 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  
+  .service-item p {
+    font-size: 0.8rem;
+  }
+  
+  .service-item i {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
   }
   
   .tech-stack {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
+  }
+  
+  .tech-category h4 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  .tech-items {
+    gap: 6px;
+  }
+  
+  .tech-items span {
+    font-size: 0.75rem;
+    padding: 4px 8px;
   }
   
   .contact-icons {
-    gap: 24px;
-    margin-bottom: 60px;
+    gap: 20px;
+    margin-bottom: 40px;
   }
   
   .icon-card {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
   }
   
   .icon-card i {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
   
   .hero-section {
@@ -823,19 +908,85 @@ h1, h2, h3 {
   }
   
   .hero-card {
-    padding: 40px 20px;
+    padding: 30px 16px;
+  }
+  
+  .hero-card h1 {
+    font-size: 2.2rem;
+    margin-bottom: 12px;
   }
   
   .hero-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
   
   .section-title {
-    font-size: 1.8rem;
-    margin-bottom: 40px;
+    font-size: 1.6rem;
+    margin-bottom: 30px;
   }
   
   .contact-section {
     padding: 20px 15px;
+  }
+  
+  .footer-glass {
+    padding: 16px 20px;
+    font-size: 0.8rem;
+  }
+}
+
+/* === Extra Small Mobile === */
+@media (max-width: 480px) {
+  .content-section {
+    padding: 10px 8px;
+  }
+  
+  .project-info {
+    gap: 12px;
+    padding: 5px 0;
+  }
+  
+  .info-card {
+    padding: 16px 12px;
+  }
+  
+  .info-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+  
+  .project-card {
+    padding: 12px;
+  }
+  
+  .service-item {
+    padding: 12px;
+  }
+  
+  .hero-card h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  
+  .contact-icons {
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .icon-card {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .icon-card i {
+    font-size: 1.2rem;
   }
 } 
