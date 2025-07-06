@@ -67,6 +67,205 @@ document.addEventListener('DOMContentLoaded', function() {
   animateCursor();
 });
 
+// === Language Switcher ===
+class LanguageSwitcher {
+  constructor() {
+    this.currentLang = 'en';
+    this.init();
+  }
+  
+  init() {
+    // Получить язык из localStorage или установить по умолчанию
+    this.currentLang = localStorage.getItem('language') || 'en';
+    this.updateLanguage();
+    this.bindEvents();
+  }
+  
+  bindEvents() {
+    const langBtns = document.querySelectorAll('.lang-btn');
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const lang = e.target.dataset.lang;
+        this.switchLanguage(lang);
+      });
+    });
+  }
+  
+  switchLanguage(lang) {
+    this.currentLang = lang;
+    localStorage.setItem('language', lang);
+    this.updateLanguage();
+    this.updateActiveButton();
+  }
+  
+  updateLanguage() {
+    const elements = document.querySelectorAll('[data-' + this.currentLang + ']');
+    elements.forEach(element => {
+      const text = element.getAttribute('data-' + this.currentLang);
+      if (text) {
+        element.textContent = text;
+      }
+    });
+    
+    // Обновить title страницы
+    const titles = {
+      'en': 'Anisimov Studio – Development & Innovation',
+      'ru': 'Anisimov Studio – Разработка и инновации',
+      'zh': 'Anisimov Studio – 开发与创新'
+    };
+    document.title = titles[this.currentLang];
+  }
+  
+  updateActiveButton() {
+    const langBtns = document.querySelectorAll('.lang-btn');
+    langBtns.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.dataset.lang === this.currentLang) {
+        btn.classList.add('active');
+      }
+    });
+  }
+}
+
+// === Apple-style Scroll Animations ===
+class ScrollAnimations {
+  constructor() {
+    this.elements = document.querySelectorAll('.animate-on-scroll');
+    this.observer = null;
+    this.init();
+  }
+  
+  init() {
+    this.createObserver();
+    this.observeElements();
+    
+    // Анимация героя сразу при загрузке
+    setTimeout(() => {
+      const hero = document.querySelector('.hero-card');
+      if (hero) {
+        hero.classList.add('animate');
+      }
+    }, 300);
+  }
+  
+  createObserver() {
+    const options = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, options);
+  }
+  
+  observeElements() {
+    this.elements.forEach(element => {
+      this.observer.observe(element);
+    });
+  }
+}
+
+// === Smooth Scrolling ===
+class SmoothScroll {
+  constructor() {
+    this.init();
+  }
+  
+  init() {
+    // Плавная прокрутка для всех ссылок
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  }
+}
+
+// === Parallax Effect ===
+class ParallaxEffect {
+  constructor() {
+    this.init();
+  }
+  
+  init() {
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          this.updateParallax();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  
+  updateParallax() {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.glass');
+    
+    parallaxElements.forEach((element, index) => {
+      const speed = 0.5 + (index * 0.1);
+      const yPos = -(scrolled * speed);
+      element.style.transform = `translateY(${yPos}px)`;
+    });
+  }
+}
+
+// === Highlight Layer Effect ===
+class HighlightEffect {
+  constructor() {
+    this.hero = document.getElementById('hero');
+    this.highlight = document.getElementById('highlight');
+    this.init();
+  }
+  
+  init() {
+    if (this.hero && this.highlight) {
+      this.hero.addEventListener('mousemove', (e) => {
+        const rect = this.hero.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        this.highlight.style.setProperty('--mouse-x', x + '%');
+        this.highlight.style.setProperty('--mouse-y', y + '%');
+        this.highlight.style.opacity = '1';
+      });
+      
+      this.hero.addEventListener('mouseleave', () => {
+        this.highlight.style.opacity = '0';
+      });
+    }
+  }
+}
+
+// === Initialization ===
+document.addEventListener('DOMContentLoaded', () => {
+  new LanguageSwitcher();
+  new ScrollAnimations();
+  new SmoothScroll();
+  new ParallaxEffect();
+  new HighlightEffect();
+  
+  // Добавить класс loaded для финальных анимаций
+  setTimeout(() => {
+    document.body.classList.add('loaded');
+  }, 1000);
+});
+
 // === DOM Elements ===
 const hero = document.getElementById('hero');
 const highlight = document.getElementById('highlight');
@@ -171,20 +370,6 @@ document.querySelectorAll('.card').forEach(card => {
     
     card.style.setProperty('--hover-x', `${x}px`);
     card.style.setProperty('--hover-y', `${y}px`);
-  });
-});
-
-// === Smooth scroll for any internal links ===
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
   });
 });
 

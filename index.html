@@ -12,22 +12,29 @@
 <body>
   <div class="noise-overlay"></div>
   
+  <!-- Language Switcher -->
+  <div class="language-switcher">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="ru">RU</button>
+    <button class="lang-btn" data-lang="zh">中</button>
+  </div>
+  
   <header>
     <div class="highlight-layer" id="highlight"></div>
-    <div class="glass hero-card" id="hero">
-      <h1>ANISIMOV STUDIO</h1>
-      <p class="hero-subtitle">Development & Innovation Hub</p>
+    <div class="glass hero-card animate-on-scroll" id="hero">
+      <h1 data-en="ANISIMOV STUDIO" data-ru="ANISIMOV STUDIO" data-zh="ANISIMOV STUDIO">ANISIMOV STUDIO</h1>
+      <p class="hero-subtitle" data-en="Development & Innovation Hub" data-ru="Центр разработки и инноваций" data-zh="开发与创新中心">Development & Innovation Hub</p>
     </div>
   </header>
 
   <section class="project-info">
-    <div class="glass info-card">
-      <h2>🚀 Our Projects</h2>
+    <div class="glass info-card animate-on-scroll">
+      <h2 data-en="🚀 Our Projects" data-ru="🚀 Наши проекты" data-zh="🚀 我们的项目">🚀 Our Projects</h2>
       <div class="projects-grid">
-        <a href="https://github.com/ANISIMOV-STUDIO/gpt-telegram-bot" class="project-card" target="_blank">
+        <a href="https://github.com/ANISIMOV-STUDIO/gpt-telegram-bot" class="project-card animate-on-scroll" target="_blank">
           <div class="project-icon">🤖</div>
-          <h3>GPT Telegram Bot</h3>
-          <p>ChatGPT-powered assistant with context memory and proxy support</p>
+          <h3 data-en="GPT Telegram Bot" data-ru="GPT Telegram Bot" data-zh="GPT Telegram 机器人">GPT Telegram Bot</h3>
+          <p data-en="ChatGPT-powered assistant with context memory and proxy support" data-ru="Ассистент на базе ChatGPT с памятью контекста и поддержкой прокси" data-zh="基于ChatGPT的助手，具有上下文记忆和代理支持">ChatGPT-powered assistant with context memory and proxy support</p>
           <div class="project-tech">
             <span>Python</span>
             <span>OpenAI API</span>
@@ -35,48 +42,48 @@
           </div>
         </a>
         
-        <div class="project-card coming-soon">
+        <div class="project-card coming-soon animate-on-scroll">
           <div class="project-icon">⚡</div>
-          <h3>Coming Soon</h3>
-          <p>More innovative projects in development</p>
+          <h3 data-en="Coming Soon" data-ru="Скоро" data-zh="即将推出">Coming Soon</h3>
+          <p data-en="More innovative projects in development" data-ru="Больше инновационных проектов в разработке" data-zh="更多创新项目正在开发中">More innovative projects in development</p>
           <div class="project-tech">
-            <span>Stay tuned</span>
+            <span data-en="Stay tuned" data-ru="Следите за обновлениями" data-zh="敬请期待">Stay tuned</span>
           </div>
         </div>
       </div>
     </div>
     
-    <div class="glass info-card">
-      <h2>💡 What We Do</h2>
+    <div class="glass info-card animate-on-scroll">
+      <h2 data-en="💡 What We Do" data-ru="💡 Чем мы занимаемся" data-zh="💡 我们做什么">💡 What We Do</h2>
       <div class="services-grid">
-        <div class="service-item">
+        <div class="service-item animate-on-scroll">
           <i class="fa-solid fa-robot"></i>
-          <h4>AI Integration</h4>
-          <p>ChatGPT, OpenAI API, intelligent automation</p>
+          <h4 data-en="AI Integration" data-ru="Интеграция ИИ" data-zh="AI 集成">AI Integration</h4>
+          <p data-en="ChatGPT, OpenAI API, intelligent automation" data-ru="ChatGPT, OpenAI API, интеллектуальная автоматизация" data-zh="ChatGPT, OpenAI API, 智能自动化">ChatGPT, OpenAI API, intelligent automation</p>
         </div>
-        <div class="service-item">
+        <div class="service-item animate-on-scroll">
           <i class="fa-solid fa-code"></i>
-          <h4>Backend Development</h4>
-          <p>Python, .NET, scalable architectures</p>
+          <h4 data-en="Backend Development" data-ru="Backend разработка" data-zh="后端开发">Backend Development</h4>
+          <p data-en="Python, .NET, scalable architectures" data-ru="Python, .NET, масштабируемые архитектуры" data-zh="Python, .NET, 可扩展架构">Python, .NET, scalable architectures</p>
         </div>
-        <div class="service-item">
+        <div class="service-item animate-on-scroll">
           <i class="fa-solid fa-cloud"></i>
-          <h4>DevOps & Cloud</h4>
-          <p>CI/CD, containerization, deployment</p>
+          <h4 data-en="DevOps & Cloud" data-ru="DevOps и облако" data-zh="DevOps 和云">DevOps & Cloud</h4>
+          <p data-en="CI/CD, containerization, deployment" data-ru="CI/CD, контейнеризация, развертывание" data-zh="CI/CD, 容器化, 部署">CI/CD, containerization, deployment</p>
         </div>
-        <div class="service-item">
+        <div class="service-item animate-on-scroll">
           <i class="fa-solid fa-mobile-alt"></i>
-          <h4>Telegram Bots</h4>
-          <p>Custom bots with advanced features</p>
+          <h4 data-en="Telegram Bots" data-ru="Telegram боты" data-zh="Telegram 机器人">Telegram Bots</h4>
+          <p data-en="Custom bots with advanced features" data-ru="Кастомные боты с расширенными возможностями" data-zh="具有高级功能的自定义机器人">Custom bots with advanced features</p>
         </div>
       </div>
     </div>
 
-    <div class="glass info-card">
-      <h2>🛠️ Tech Stack</h2>
+    <div class="glass info-card animate-on-scroll">
+      <h2 data-en="🛠️ Tech Stack" data-ru="🛠️ Технологии" data-zh="🛠️ 技术栈">🛠️ Tech Stack</h2>
       <div class="tech-stack">
-        <div class="tech-category">
-          <h4>Languages</h4>
+        <div class="tech-category animate-on-scroll">
+          <h4 data-en="Languages" data-ru="Языки" data-zh="编程语言">Languages</h4>
           <div class="tech-items">
             <span>Python</span>
             <span>C#</span>
@@ -84,8 +91,8 @@
             <span>TypeScript</span>
           </div>
         </div>
-        <div class="tech-category">
-          <h4>Frameworks</h4>
+        <div class="tech-category animate-on-scroll">
+          <h4 data-en="Frameworks" data-ru="Фреймворки" data-zh="框架">Frameworks</h4>
           <div class="tech-items">
             <span>.NET</span>
             <span>FastAPI</span>
@@ -93,8 +100,8 @@
             <span>Next.js</span>
           </div>
         </div>
-        <div class="tech-category">
-          <h4>Tools & Platforms</h4>
+        <div class="tech-category animate-on-scroll">
+          <h4 data-en="Tools & Platforms" data-ru="Инструменты и платформы" data-zh="工具和平台">Tools & Platforms</h4>
           <div class="tech-items">
             <span>Docker</span>
             <span>GitHub Actions</span>
@@ -107,27 +114,29 @@
   </section>
 
   <section class="contact-links">
-    <h2 class="section-title">Connect With Us</h2>
-    <a href="https://t.me/anisimov_studio" class="glass card" target="_blank" rel="noopener">
+    <h2 class="section-title animate-on-scroll" data-en="Connect With Us" data-ru="Свяжитесь с нами" data-zh="联系我们">Connect With Us</h2>
+    <a href="https://t.me/anisimov_studio" class="glass card animate-on-scroll" target="_blank" rel="noopener">
       <i class="fa-brands fa-telegram"></i>
       <span>t.me/anisimov_studio</span>
     </a>
-    <a href="https://youtube.com/@ANISIMOV_STUDIO" class="glass card" target="_blank" rel="noopener">
+    <a href="https://youtube.com/@ANISIMOV_STUDIO" class="glass card animate-on-scroll" target="_blank" rel="noopener">
       <i class="fa-brands fa-youtube"></i>
       <span>youtube.com/@ANISIMOV_STUDIO</span>
     </a>
-    <a href="mailto:anisimov.studio.work@gmail.com" class="glass card">
+    <a href="mailto:anisimov.studio.work@gmail.com" class="glass card animate-on-scroll">
       <i class="fa-solid fa-envelope"></i>
       <span>anisimov.studio.work@gmail.com</span>
     </a>
-    <a href="https://github.com/ANISIMOV-STUDIO" class="glass card" target="_blank" rel="noopener">
+    <a href="https://github.com/ANISIMOV-STUDIO" class="glass card animate-on-scroll" target="_blank" rel="noopener">
       <i class="fa-brands fa-github"></i>
-      <span>View Organization</span>
+      <span data-en="View Organization" data-ru="Посмотреть организацию" data-zh="查看组织">View Organization</span>
     </a>
   </section>
 
   <footer>
-    <div class="glass footer-glass">© 2025 Anisimov Studio. All rights reserved.</div>
+    <div class="glass footer-glass animate-on-scroll">
+      <span data-en="© 2025 Anisimov Studio. All rights reserved." data-ru="© 2025 Anisimov Studio. Все права защищены." data-zh="© 2025 Anisimov Studio. 版权所有。">© 2025 Anisimov Studio. All rights reserved.</span>
+    </div>
   </footer>
 
   <script src="script.js"></script>
