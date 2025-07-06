@@ -1,3 +1,72 @@
+// === Premium Protection & UX ===
+document.addEventListener('DOMContentLoaded', function() {
+  // Блокировка контекстного меню
+  document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+  });
+  
+  // Блокировка горячих клавиш
+  document.addEventListener('keydown', function(e) {
+    // Блокировка Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+S, Ctrl+P
+    if (e.ctrlKey && (e.key === 'a' || e.key === 'c' || e.key === 'v' || e.key === 'x' || e.key === 's' || e.key === 'p')) {
+      e.preventDefault();
+      return false;
+    }
+    
+    // Блокировка F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    if (e.key === 'F12' || 
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+        (e.ctrlKey && e.key === 'u')) {
+      e.preventDefault();
+      return false;
+    }
+  });
+  
+  // Блокировка выделения мышью
+  document.addEventListener('selectstart', function(e) {
+    e.preventDefault();
+    return false;
+  });
+  
+  // Блокировка drag & drop
+  document.addEventListener('dragstart', function(e) {
+    e.preventDefault();
+    return false;
+  });
+  
+  // Премиальный курсор-следящий эффект
+  const cursor = document.createElement('div');
+  cursor.className = 'premium-cursor';
+  cursor.innerHTML = '✦';
+  document.body.appendChild(cursor);
+  
+  let mouseX = 0;
+  let mouseY = 0;
+  let cursorX = 0;
+  let cursorY = 0;
+  
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+  
+  function animateCursor() {
+    const dx = mouseX - cursorX;
+    const dy = mouseY - cursorY;
+    
+    cursorX += dx * 0.1;
+    cursorY += dy * 0.1;
+    
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+    
+    requestAnimationFrame(animateCursor);
+  }
+  
+  animateCursor();
+});
+
 // === DOM Elements ===
 const hero = document.getElementById('hero');
 const highlight = document.getElementById('highlight');

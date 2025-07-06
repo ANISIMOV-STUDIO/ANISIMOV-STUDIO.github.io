@@ -1,3 +1,84 @@
+/* === Premium Cursor & Text Selection === */
+* {
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCA5TDEzLjA5IDE1Ljc0TDEyIDIyTDEwLjkxIDE1Ljc0TDQgOUwxMC45MSA4LjI2TDEyIDJaIiBmaWxsPSIjZDRhZjM3IiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC41Ii8+CjxwYXRoIGQ9Ik0xMiA2TDEyLjcgMTBMMTYgMTBMMTIuNyAxNEwxMiAxOEwxMS4zIDE0TDggMTBMMTEuMyAxMEwxMiA2WiIgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjIiLz4KPC9zdmc+'), auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Премиальный курсор для интерактивных элементов */
+a, button, .card, .project-card:not(.coming-soon), .service-item, .tech-items span {
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTggM1Y3SDEyVjNIOFoiIGZpbGw9IiNkNGFmMzciLz4KPHBhdGggZD0iTTEyIDdWMTFIMTZWN0gxMloiIGZpbGw9IiNkNGFmMzciLz4KPHBhdGggZD0iTTggN1YxMUgxMlY3SDhaIiBmaWxsPSIjZDRhZjM3Ii8+CjxwYXRoIGQ9Ik00IDExVjE1SDhWMTFINFoiIGZpbGw9IiNkNGFmMzciLz4KPHBhdGggZD0iTTggMTFWMTVIMTJWMTFIOFoiIGZpbGw9IiNkNGFmMzciLz4KPHBhdGggZD0iTTEyIDExVjE1SDE2VjExSDEyWiIgZmlsbD0iI2Q0YWYzNyIvPgo8cGF0aCBkPSJNMTYgMTFWMTVIMjBWMTFIMTZaIiBmaWxsPSIjZDRhZjM3Ii8+CjxwYXRoIGQ9Ik04IDE1VjE5SDEyVjE1SDhaIiBmaWxsPSIjZDRhZjM3Ii8+CjxwYXRoIGQ9Ik0xMiAxNVYxOUgxNlYxNUgxMloiIGZpbGw9IiNkNGFmMzciLz4KPHBhdGggZD0iTTEyIDE5VjIzSDE2VjE5SDEyWiIgZmlsbD0iI2Q0YWYzNyIvPgo8cGF0aCBkPSJNOCAzVjdIMTJWM0g4WiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjAuNSIvPgo8cGF0aCBkPSJNMTIgN1YxMUgxNlY3SDEyWiIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjAuNSIvPgo8cGF0aCBkPSJNOCA3VjExSDEyVjdIOFoiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIwLjUiLz4KPHN0eWxlPi5zdGF7ZmlsbDojZDRhZjM3O3N0cm9rZTojMDAwO3N0cm9rZS13aWR0aDowLjV9PC9zdHlsZT4KPC9zdmc+'), pointer;
+}
+
+/* Блокировка выделения для всех элементов */
+body, h1, h2, h3, h4, h5, h6, p, span, div, a, li, ul, ol {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Блокировка контекстного меню */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Блокировка drag & drop */
+img, svg, canvas {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Премиальный курсор для disabled элементов */
+.coming-soon {
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIHN0cm9rZT0iIzY2NjY2NiIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJub25lIi8+CjxwYXRoIGQ9Ik0xNSA5TDkgMTVNOSA5TDE1IDE1IiBzdHJva2U9IiM2NjY2NjYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+Cjwvc3ZnPg=='), not-allowed;
+}
+
+/* Премиальный следящий курсор */
+.premium-cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  font-size: 16px;
+  color: var(--accent);
+  pointer-events: none;
+  z-index: 9999;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+  filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+  animation: cursorPulse 2s ease-in-out infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes cursorPulse {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Скрытие стандартного курсора на интерактивных элементах */
+a:hover, button:hover, .card:hover, .project-card:hover, .service-item:hover, .tech-items span:hover {
+  cursor: none;
+}
+
 /* === Variables === */
 :root {
   --bg-primary: #0a0a0a;
@@ -16,11 +97,6 @@
 }
 
 /* === Base Styles === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 html, body {
   height: 100%;
