@@ -170,39 +170,141 @@ class ScrollAnimations {
   }
 }
 
-// === Smooth Scrolling ===
-class SmoothScroll {
+// === Snap Scroll ===
+class SnapScroll {
   constructor() {
+    this.container = document.querySelector('.snap-container');
+    this.sections = document.querySelectorAll('.snap-section');
+    this.currentSection = 0;
+    this.isScrolling = false;
     this.init();
   }
   
   init() {
-    // Плавная прокрутка для всех ссылок
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
-        e.preventDefault();
-        const target = document.querySelector(anchor.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+    if (!this.container || !this.sections.length) return;
+    
+    this.bindEvents();
+  }
+  
+  bindEvents() {
+    // Обработка колесика мыши
+    this.container.addEventListener('wheel', (e) => {
+      if (this.isScrolling) return;
+      
+      e.preventDefault();
+      
+      const delta = e.deltaY;
+      const threshold = 50; // Минимальный скролл для переключения
+      
+      if (Math.abs(delta) > threshold) {
+        if (delta > 0) {
+          this.scrollToNext();
+        } else {
+          this.scrollToPrev();
         }
-      });
+      }
+    }, { passive: false });
+    
+    // Обработка клавиатуры
+    document.addEventListener('keydown', (e) => {
+      if (this.isScrolling) return;
+      
+      switch(e.key) {
+        case 'ArrowDown':
+        case 'PageDown':
+          e.preventDefault();
+          this.scrollToNext();
+          break;
+        case 'ArrowUp':
+        case 'PageUp':
+          e.preventDefault();
+          this.scrollToPrev();
+          break;
+        case 'Home':
+          e.preventDefault();
+          this.scrollToSection(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          this.scrollToSection(this.sections.length - 1);
+          break;
+      }
     });
+    
+    // Обработка тач-жестов
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    this.container.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    });
+    
+    this.container.addEventListener('touchend', (e) => {
+      if (this.isScrolling) return;
+      
+      touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartY - touchEndY;
+      const threshold = 50;
+      
+      if (Math.abs(deltaY) > threshold) {
+        if (deltaY > 0) {
+          this.scrollToNext();
+        } else {
+          this.scrollToPrev();
+        }
+      }
+    });
+  }
+  
+  scrollToNext() {
+    if (this.currentSection < this.sections.length - 1) {
+      this.currentSection++;
+      this.scrollToSection(this.currentSection);
+    }
+  }
+  
+  scrollToPrev() {
+    if (this.currentSection > 0) {
+      this.currentSection--;
+      this.scrollToSection(this.currentSection);
+    }
+  }
+  
+  scrollToSection(index) {
+    if (index < 0 || index >= this.sections.length || this.isScrolling) return;
+    
+    this.isScrolling = true;
+    this.currentSection = index;
+    
+    const targetSection = this.sections[index];
+    const targetTop = targetSection.offsetTop;
+    
+    // Плавная прокрутка
+    this.container.scrollTo({
+      top: targetTop,
+      behavior: 'smooth'
+    });
+    
+    // Разблокировка через время анимации
+    setTimeout(() => {
+      this.isScrolling = false;
+    }, 800);
   }
 }
 
 // === Parallax Effect ===
 class ParallaxEffect {
   constructor() {
+    this.snapContainer = document.querySelector('.snap-container');
     this.init();
   }
   
   init() {
+    if (!this.snapContainer) return;
+    
     let ticking = false;
     
-    window.addEventListener('scroll', () => {
+    this.snapContainer.addEventListener('scroll', () => {
       if (!ticking) {
         requestAnimationFrame(() => {
           this.updateParallax();
@@ -214,14 +316,13 @@ class ParallaxEffect {
   }
   
   updateParallax() {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.glass');
+    const scrolled = this.snapContainer.scrollTop;
+    const noiseOverlay = document.querySelector('.noise-overlay');
     
-    parallaxElements.forEach((element, index) => {
-      const speed = 0.5 + (index * 0.1);
-      const yPos = -(scrolled * speed);
-      element.style.transform = `translateY(${yPos}px)`;
-    });
+    if (noiseOverlay) {
+      const rate = scrolled * -0.3;
+      noiseOverlay.style.transform = `translateY(${rate}px)`;
+    }
   }
 }
 
@@ -256,7 +357,7 @@ class HighlightEffect {
 document.addEventListener('DOMContentLoaded', () => {
   new LanguageSwitcher();
   new ScrollAnimations();
-  new SmoothScroll();
+  new SnapScroll();
   new ParallaxEffect();
   new HighlightEffect();
   
@@ -266,123 +367,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 1000);
 });
 
-// === DOM Elements ===
-const hero = document.getElementById('hero');
-const highlight = document.getElementById('highlight');
-
-// === Parallax Hero Tilt ===
-let isMouseInWindow = true;
-
-document.addEventListener('mousemove', (e) => {
-  if (!isMouseInWindow) return;
-  
-  const { innerWidth: w, innerHeight: h } = window;
-  
-  // Hero tilt effect
-  const rotY = ((e.clientX - w/2) / w) * 12; // ±12deg range
-  const rotX = -((e.clientY - h/2) / h) * 8;  // ±8deg range
-  
-  hero.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-  
-  // Dynamic highlight following cursor
-  const x = (e.clientX / w) * 100 + '%';
-  const y = (e.clientY / h) * 100 + '%';
-  
-  highlight.style.setProperty('--mx', x);
-  highlight.style.setProperty('--my', y);
-});
-
-// === Mouse enter/leave window tracking ===
-window.addEventListener('mouseenter', () => {
-  isMouseInWindow = true;
-});
-
-window.addEventListener('mouseleave', () => {
-  isMouseInWindow = false;
-  // Reset hero tilt
-  hero.style.transform = '';
-  // Reset highlight to center
-  highlight.style.setProperty('--mx', '50%');
-  highlight.style.setProperty('--my', '50%');
-});
-
-// === Scroll-based hero fade ===
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const fadeStart = 100;
-  const fadeEnd = 400;
-  
-  if (scrolled <= fadeStart) {
-    hero.style.opacity = '1';
-  } else if (scrolled >= fadeEnd) {
-    hero.style.opacity = '0.2';
-  } else {
-    const fadeProgress = (scrolled - fadeStart) / (fadeEnd - fadeStart);
-    hero.style.opacity = 1 - (fadeProgress * 0.8);
-  }
-});
-
-// === Card stagger animation on load ===
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.card');
-  const infoCards = document.querySelectorAll('.info-card');
-  
-  cards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(30px)';
-    
-    setTimeout(() => {
-      card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
-    }, 800 + (index * 150)); // Stagger by 150ms
-  });
-  
-  // Animate info cards
-  infoCards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(40px) scale(0.95)';
-    
-    setTimeout(() => {
-      card.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0) scale(1)';
-    }, 300 + (index * 200)); // Stagger info cards
-  });
-});
-
-// === Enhanced card hover effects ===
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('mouseenter', (e) => {
-    // Add golden glow overlay
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    card.style.setProperty('--hover-x', `${x}px`);
-    card.style.setProperty('--hover-y', `${y}px`);
-  });
-  
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    card.style.setProperty('--hover-x', `${x}px`);
-    card.style.setProperty('--hover-y', `${y}px`);
-  });
-});
-
-// === Performance optimization: throttle scroll events ===
-let scrollTimeout;
-const originalScrollHandler = window.onscroll;
-
-window.addEventListener('scroll', () => {
-  if (scrollTimeout) {
-    clearTimeout(scrollTimeout);
-  }
-  
-  scrollTimeout = setTimeout(() => {
-    // Scroll handler logic here
-  }, 16); // ~60fps
-}); 
+ 
